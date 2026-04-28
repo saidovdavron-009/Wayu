@@ -1,6 +1,6 @@
 import { Column, Entity } from 'typeorm';
-import { BaseModel } from '../../../../core/base-model';
-import { QuestionStatus } from '../../../../core/enum/enum';
+import { BaseModel } from '@/core/base-model';
+import { QuestionStatus } from '@/core/enum/enum';
 
 @Entity('questions')
 export class Questions extends BaseModel {

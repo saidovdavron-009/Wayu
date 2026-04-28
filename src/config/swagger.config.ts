@@ -3,7 +3,7 @@ import {INestApplication} from '@nestjs/common';
 
 export const configureSwagger = (app: INestApplication) => {
   let swaggerConfig = new DocumentBuilder()
-    .setTitle('UzChess')
+    .setTitle('Wayu Api Endpoints')
     .setVersion('1.0.0')
     .addBearerAuth()
     .build();

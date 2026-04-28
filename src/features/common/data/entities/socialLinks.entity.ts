@@ -1,5 +1,5 @@
 import { Column, Entity } from 'typeorm';
-import { BaseModel } from '../../../../core/base-model';
+import {BaseModel} from "@/core/base-model";
 
 @Entity('social-links')
 export class SocialLinks extends BaseModel {

@@ -1,9 +1,10 @@
 import { Column, Entity, ManyToMany, OneToMany } from 'typeorm';
-import { BaseModel } from '../../../../core/base-model';
-import { News } from '../../../news/data/entities/news.entity';
-import { NewsTag } from '../../../news/data/entities/newsTags.entity';
 import { Faqs } from '../../../support/data/entities/faqs.entity';
 import { FaqsTag } from '../../../support/data/entities/faqsTags.entity';
+import {BaseModel} from "@/core/base-model";
+import {News} from "@/features/news/news/news.entity";
+import {NewsTag} from "@/features/news/news-tags/news-tags.entity";
+import type {Relation} from "typeorm";
 
 @Entity('tags')
 export class Tags extends BaseModel {
@@ -11,14 +12,14 @@ export class Tags extends BaseModel {
   title!: string;
 
   @ManyToMany(() => News, (news) => news.tags)
-  news: News[];
+  news: Relation<News[]>;
 
   @OneToMany(() => NewsTag, (newsTag) => newsTag.tag)
-  newsTags: NewsTag[];
+  newsTags: Relation<NewsTag[]>;
 
   @ManyToMany(() => Faqs, (faq) => faq.tags)
-  faqs: Faqs[];
+  faqs: Relation<Faqs[]>;
 
   @OneToMany(() => FaqsTag, (faqsTag) => faqsTag.tag)
-  faqsTags: FaqsTag[];
+  faqsTags: Relation<FaqsTag[]>;
 }

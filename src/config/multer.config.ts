@@ -1,17 +1,17 @@
 import { diskStorage } from 'multer';
-import * as fs from 'fs'
+import * as fs from 'fs';
 import { BadRequestException } from '@nestjs/common';
 
-function getFileType(mime : string): string{
+function getFileType(mime: string): string {
   switch (mime) {
     case 'image/jpeg':
-    case  'image/png':
+    case 'image/png':
     case 'image/gif':
       return 'image';
     case 'application/pdf':
       return 'document';
     default:
-      return 'file'
+      return 'file';
   }
 }
 

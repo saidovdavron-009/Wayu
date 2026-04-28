@@ -1,6 +1,6 @@
 import { IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { PaginationFilters } from '../../../news/presentation/pagination.filter';
+import {PaginationFilters} from "@/features/common/presentation/pagination.filter";
 
 export class EventFilter extends PaginationFilters{
   @IsString()

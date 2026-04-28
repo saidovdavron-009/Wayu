@@ -1,6 +1,7 @@
 import { Entity, PrimaryColumn, ManyToOne, JoinColumn } from 'typeorm';
-import { News } from './news.entity';
-import { Tags } from '../../../common/data/entities/tags.entity';
+import {News} from "@/features/news/news/news.entity";
+import {Tags} from "@/features/common/data/entities/tags.entity";
+import type {Relation} from "typeorm";
 
 @Entity('newsTags')
 export class NewsTag {
@@ -12,8 +13,9 @@ export class NewsTag {
 
   @ManyToOne(() => News, (news) => news.newsTags)
   @JoinColumn({ name: 'newsId' })
-  news: News;
+  news: Relation<News>;
 
   @ManyToOne(() => Tags, (tag) => tag.newsTags)
-  tag: Tags;
+  @JoinColumn({ name: 'tagId' })
+  tag: Relation<Tags>;
 }

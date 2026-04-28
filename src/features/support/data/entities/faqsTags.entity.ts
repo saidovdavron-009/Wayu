@@ -1,7 +1,8 @@
 import { Entity, PrimaryColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { Faqs } from './faqs.entity';
 import { Tags } from '../../../common/data/entities/tags.entity';
-import { BaseModel } from '../../../../core/base-model';
+import { BaseModel } from '@/core/base-model';
+import type {Relation} from "typeorm";
 
 @Entity('faqsTags')
 export class FaqsTag extends BaseModel{
@@ -13,9 +14,9 @@ export class FaqsTag extends BaseModel{
 
   @ManyToOne(() => Faqs, (faq) => faq.faqsTags, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'faqsId' })
-  faq: Faqs;
+  faq: Relation<Faqs>;
 
   @ManyToOne(() => Tags, (tag) => tag.faqsTags, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'tagId' })
-  tag: Tags;
+  tag: Relation<Tags>;
 }

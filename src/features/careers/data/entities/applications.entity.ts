@@ -1,7 +1,8 @@
 import { Column, Entity, ManyToOne } from 'typeorm';
-import { BaseModel } from '../../../../core/base-model';
-import { ApplicationStatus } from '../../../../core/enum/enum';
 import { Vacancies } from './vacancies.entity';
+import {BaseModel} from "@/core/base-model";
+import {ApplicationStatus} from "@/core/enum/enum";
+import type {Relation} from "typeorm";
 
 @Entity('application')
 export class Applications extends BaseModel {
@@ -24,5 +25,5 @@ export class Applications extends BaseModel {
   status!: ApplicationStatus;
 
   @ManyToOne(() => Vacancies, (vacancy) => vacancy.application)
-  vacancy?: Vacancies;
+  vacancy?: Relation<Vacancies>;
 }

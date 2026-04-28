@@ -1,7 +1,8 @@
 import { Column, Entity, OneToMany } from 'typeorm';
-import { BaseModel } from '../../../../core/base-model';
-import { VacancyType } from '../../../../core/enum/enum';
 import { Applications } from './applications.entity';
+import {BaseModel} from "@/core/base-model";
+import {VacancyType} from "@/core/enum/enum";
+import type {Relation} from "typeorm";
 
 @Entity('vacancy')
 export class Vacancies extends BaseModel {
@@ -27,5 +28,5 @@ export class Vacancies extends BaseModel {
   isActive!: boolean;
 
   @OneToMany(() => Applications, (application) => application.vacancy)
-  application?: Applications[];
+  application?: Relation<Applications[]>;
 }

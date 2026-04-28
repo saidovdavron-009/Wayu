@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany } from 'typeorm';
-import { BaseModel } from '../../../../core/base-model';
 import { Branches } from './branches.entity';
+import {BaseModel} from "@/core/base-model";
+import type {Relation} from "typeorm";
 
 @Entity('representatives')
 export class Representatives extends BaseModel {
@@ -20,5 +21,5 @@ export class Representatives extends BaseModel {
   resume!: string;
 
   @OneToMany(() => Branches,(branch) => branch.representative)
-  branch? : Branches[]
+  branch? : Relation<Branches[]>
 }

@@ -1,7 +1,8 @@
 import { Column, Entity, ManyToMany, JoinTable, OneToMany } from 'typeorm';
-import { BaseModel } from '../../../../core/base-model';
+import { BaseModel } from '@/core/base-model';
 import { Tags } from '../../../common/data/entities/tags.entity';
 import { FaqsTag } from './faqsTags.entity';
+import type {Relation} from "typeorm";
 
 @Entity('faqs')
 export class Faqs extends BaseModel {
@@ -12,8 +13,8 @@ export class Faqs extends BaseModel {
   answer!: string;
 
   @ManyToMany(() => Tags, (tag) => tag.faqs)
-  tags: Tags[];
+  tags: Relation<Tags[]>;
 
   @OneToMany(() => FaqsTag, (faqsTag) => faqsTag.faq)
-  faqsTags: FaqsTag[];
+  faqsTags: Relation<FaqsTag[]>;
 }
