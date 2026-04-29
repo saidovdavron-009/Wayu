@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Query} from "@nestjs/common";
+import {Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query} from "@nestjs/common";
 import {ApiCreatedResponse, ApiOkResponse, ApiTags} from "@nestjs/swagger";
 import {CreateNewsCategoryCommands} from "./commands/create-news-category/create-news-category.commands";
 import {CreateNewsCategoryResponse} from "./commands/create-news-category/create-news-category.response";
@@ -7,9 +7,12 @@ import {GetAllNewsCategoryQuery} from "./query/get-all-news-category/get-all-new
 import {CommandBus, QueryBus} from "@nestjs/cqrs";
 import {GetAllNewsCategoryFilters} from "@/features/news/news-category/query/get-all-news-category/get-all-news-category-filters";
 import {DeleteNewsCategoryCommand} from "@/features/news/news-category/commands/delete-news-category/delete-news-category.command";
-import {DeleteNewsCategoryResponse} from "@/features/news/news-category/commands/delete-news-category/delete-news-category.response";
+import {GetOneNewsCategoryResponse} from "@/features/news/news-category/query/get-one-news-category/get-one-news-category.response";
+import {GetOneNewsCategoryQuery} from "@/features/news/news-category/query/get-one-news-category/get-one-news-category.query";
+import {UpdateNewsCategoryCommand} from "@/features/news/news-category/commands/update-news-category/update-news-category.command";
+import {UpdateNewsCategoryResponse} from "@/features/news/news-category/commands/update-news-category/update-news-category.response";
 
-@Controller('news-category/admin')
+@Controller('admin/news-category')
 @ApiTags('News-Category')
 export class NewsCategoryController {
   constructor(
@@ -24,6 +27,14 @@ export class NewsCategoryController {
     return await this.queriesBus.execute(new GetAllNewsCategoryQuery(filters))
   }
 
+  @Get(':id')
+  @ApiOkResponse({type: [GetOneNewsCategoryResponse]})
+  async getOneNewsCategory(@Param('id', ParseIntPipe) id: number) {
+    const cmd = new GetOneNewsCategoryQuery()
+    cmd.id = id
+    return await this.queriesBus.execute(cmd)
+  }
+
   @Post()
   @ApiCreatedResponse({type: CreateNewsCategoryResponse})
   async createNewsCategory(@Body() command: CreateNewsCategoryCommands) {
@@ -31,8 +42,16 @@ export class NewsCategoryController {
   }
 
   @Delete(':id')
-  @ApiOkResponse({ type: DeleteNewsCategoryResponse })
   async deleteNewsCategory(@Param('id', ParseIntPipe) id: number) {
-    return await this.commandBus.execute(new DeleteNewsCategoryCommand(id));
+    const cmd = new DeleteNewsCategoryCommand()
+    cmd.id = id;
+    return await this.commandBus.execute(cmd);
+  }
+
+  @Patch(':id')
+  @ApiOkResponse({type : UpdateNewsCategoryResponse})
+  async updateNewsCategory(@Param('id', ParseIntPipe) id: number, @Body() command: UpdateNewsCategoryCommand) {
+    command.id = id
+    return await this.commandBus.execute(command)
   }
 }

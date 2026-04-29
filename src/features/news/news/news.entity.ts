@@ -1,9 +1,9 @@
 import {Column, Entity, ManyToMany, ManyToOne, OneToMany} from "typeorm";
 import {BaseModel} from "@/core/base-model";
-import {Countries} from "@/features/common/data/entities/countries.entity";
-import {Tags} from "@/features/common/data/entities/tags.entity";
-import {NewsTag} from "@/features/news/news-tags/news-tags.entity";
+import {Countries} from "@/features/common/countries/countries.entity";
+import {Tags} from "@/features/common/tags.entity";
 import type {Relation} from "typeorm";
+import {NewsCategories} from "@/features/news/news-category/news-category.entity";
 
 @Entity('news')
 export class News extends BaseModel {
@@ -25,15 +25,12 @@ export class News extends BaseModel {
   @Column({type: "text"})
   content!: string
 
-  @ManyToOne(() => News, (news) => news.category)
-  category?: Relation<News>
+  @ManyToOne(() => NewsCategories, (category) => category.news)
+  category?: Relation<NewsCategories>
 
   @ManyToOne(() => Countries, (country) => country.news)
   country?: Relation<Countries>
 
   @ManyToMany(() => Tags, (tag) => tag.news)
   tags: Relation<Tags[]>;
-
-  @OneToMany(() => NewsTag, (newsTag) => newsTag.news)
-  newsTags: Relation<NewsTag[]>;
 }

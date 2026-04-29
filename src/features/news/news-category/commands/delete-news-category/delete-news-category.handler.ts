@@ -1,6 +1,5 @@
 import {CommandHandler, ICommandHandler} from "@nestjs/cqrs";
 import {DeleteNewsCategoryCommand} from "@/features/news/news-category/commands/delete-news-category/delete-news-category.command";
-import {DeleteNewsCategoryResponse} from "@/features/news/news-category/commands/delete-news-category/delete-news-category.response";
 import {NewsCategories} from "@/features/news/news-category/news-category.entity";
 import {BadRequestException, NotFoundException} from "@nestjs/common";
 import {News} from "@/features/news/news/news.entity";

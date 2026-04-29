@@ -8,6 +8,6 @@ export class NewsCategories extends BaseModel {
   @Column({type: "varchar", length: 64, unique: true})
   title!: string
 
-  @OneToMany(() => News, (news) => news.category)
+  @OneToMany(() => News, (news) => news.category, {onDelete: "RESTRICT"})
   news?: Relation<News[]>
 }
