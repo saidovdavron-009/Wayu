@@ -16,5 +16,5 @@ export class GetAllNewsCategoryResponse {
 
   @Expose()
   @ApiProperty()
-  updatedAt! : string
+  updatedAt? : string
 }

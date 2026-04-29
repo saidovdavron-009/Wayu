@@ -5,6 +5,7 @@ import Joi from 'joi'
 import {ConfigModule} from '@nestjs/config';
 import {NewsModule} from "@/features/news/news.module";
 import {CqrsModule} from "@nestjs/cqrs";
+import {CommonModule} from "@/features/common/common.module";
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import {CqrsModule} from "@nestjs/cqrs";
         BASE_URL: Joi.string().required()
       }),
     }),
-    NewsModule
+    NewsModule,
+    CommonModule
   ],
 })
 
