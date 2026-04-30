@@ -1,12 +1,11 @@
 import {IQueryHandler, QueryHandler} from "@nestjs/cqrs";
-import {GetOneNewsCategoryQuery} from "@/features/news/news-category/query/get-one-news-category/get-one-news-category.query";
 import {GetOneCountryQuery} from "@/features/common/countries/query/get-one-country/get-one-country.query";
 import {GetOneCountryResponse} from "@/features/common/countries/query/get-one-country/get-one-country.response";
 import {Countries} from "@/features/common/countries/countries.entity";
 import {NotFoundException} from "@nestjs/common";
 import {plainToInstance} from "class-transformer";
 
-@QueryHandler(GetOneNewsCategoryQuery)
+@QueryHandler(GetOneCountryQuery)
 export class GetOneCountryHandler implements IQueryHandler<GetOneCountryQuery> {
   async execute(query: GetOneCountryQuery): Promise<GetOneCountryResponse> {
     const country = await Countries.findOneBy({id: query.id})

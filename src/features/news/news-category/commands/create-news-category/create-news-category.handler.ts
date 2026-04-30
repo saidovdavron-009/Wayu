@@ -1,4 +1,4 @@
-import {BadRequestException, Injectable} from "@nestjs/common";
+import {BadRequestException} from "@nestjs/common";
 import {CreateNewsCategoryResponse} from "@/features/news/news-category/commands/create-news-category/create-news-category.response";
 import {CreateNewsCategoryCommands} from "@/features/news/news-category/commands/create-news-category/create-news-category.commands";
 import {ILike} from "typeorm";

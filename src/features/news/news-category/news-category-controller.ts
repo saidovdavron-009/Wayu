@@ -30,9 +30,9 @@ export class NewsCategoryController {
   @Get(':id')
   @ApiOkResponse({type: [GetOneNewsCategoryResponse]})
   async getOneNewsCategory(@Param('id', ParseIntPipe) id: number) {
-    const cmd = new GetOneNewsCategoryQuery()
-    cmd.id = id
-    return await this.queriesBus.execute(cmd)
+    const query = new GetOneNewsCategoryQuery()
+    query.id = id
+    return await this.queriesBus.execute(query)
   }
 
   @Post()
@@ -49,7 +49,7 @@ export class NewsCategoryController {
   }
 
   @Patch(':id')
-  @ApiOkResponse({type : UpdateNewsCategoryResponse})
+  @ApiOkResponse({type: UpdateNewsCategoryResponse})
   async updateNewsCategory(@Param('id', ParseIntPipe) id: number, @Body() command: UpdateNewsCategoryCommand) {
     command.id = id
     return await this.commandBus.execute(command)

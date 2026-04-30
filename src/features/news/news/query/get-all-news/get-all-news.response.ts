@@ -1,14 +1,22 @@
 import {ApiProperty} from "@nestjs/swagger";
-import {Expose} from "class-transformer";
+import {Expose, Type} from "class-transformer";
+import {GetAllNewsCategoryResponse} from "@/features/news/news-category/query/get-all-news-category/get-all-news-category.response";
+import {GetAllCountryResponse} from "@/features/common/countries/query/get-all-country/get-all-country.response";
 
 export class GetAllNewsResponse {
   @Expose()
   @ApiProperty()
-  categoryId!: number
+  id!: number
 
   @Expose()
   @ApiProperty()
-  countryId!: number
+  @Type(() => GetAllNewsCategoryResponse)
+  category!: GetAllNewsCategoryResponse
+
+  @Expose()
+  @ApiProperty()
+  @Type(() => GetAllCountryResponse)
+  country!: GetAllCountryResponse
 
   @Expose()
   @ApiProperty()
@@ -25,4 +33,12 @@ export class GetAllNewsResponse {
   @Expose()
   @ApiProperty()
   content!: string
+
+  @Expose()
+  @ApiProperty()
+  createdAt!: string
+
+  @Expose()
+  @ApiProperty()
+  updatedAt?: string
 }

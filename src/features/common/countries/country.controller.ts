@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Param, ParseIntPipe, Post, Query, UploadedFile, UseInterceptors} from "@nestjs/common";
+import {Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UploadedFile, UseInterceptors} from "@nestjs/common";
 import {ApiConsumes, ApiCreatedResponse, ApiOkResponse, ApiTags} from "@nestjs/swagger";
 import {GetAllCountryResponse} from "@/features/common/countries/query/get-all-country/get-all-country.response";
 import {CommandBus, QueryBus} from "@nestjs/cqrs";
@@ -9,7 +9,10 @@ import {storageOptions} from "@/config/multer.config";
 import {GetAllCountryQuery} from "@/features/common/countries/query/get-all-country/get-all-country.query";
 import {GetAllCountryFilters} from "@/features/common/countries/query/get-all-country/get-all-country.filters";
 import {GetOneCountryResponse} from "@/features/common/countries/query/get-one-country/get-one-country.response";
-import {GetOneNewsCategoryQuery} from "@/features/news/news-category/query/get-one-news-category/get-one-news-category.query";
+import {GetOneCountryQuery} from "@/features/common/countries/query/get-one-country/get-one-country.query";
+import {DeleteCountryCommand} from "@/features/common/countries/command/delete-country/delete-country.command";
+import {UpdateCountryResponse} from "@/features/common/countries/command/update-country/update-country.response";
+import {UpdateCountryCommand} from "@/features/common/countries/command/update-country/update-country.command";
 
 @Controller('admin/country')
 @ApiTags('Country')
@@ -42,8 +45,29 @@ export class CountryController {
   @Get(':id')
   @ApiOkResponse({type: [GetOneCountryResponse]})
   async getOneCountry(@Param('id', ParseIntPipe) id: number) {
-    const query = new GetOneNewsCategoryQuery()
+    const query = new GetOneCountryQuery()
     query.id = id
     return await this.queryBus.execute(query)
+  }
+
+  @Delete(':id')
+  async deleteCountry(@Param('id', ParseIntPipe) id: number) {
+    const cmd = new DeleteCountryCommand()
+    cmd.id = id
+    return await this.commandBus.execute(cmd)
+  }
+
+  @Patch(':id')
+  @ApiOkResponse({type: UpdateCountryResponse})
+  @ApiConsumes('multipart/form-data')
+  @UseInterceptors(FileInterceptor('flag', {storage: storageOptions}))
+  async updateCountry(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() command: UpdateCountryCommand,
+    @UploadedFile() flag: Express.Multer.File
+  ) {
+    command.id = id
+    command.flag = flag.filename
+    return await this.commandBus.execute(command)
   }
 }

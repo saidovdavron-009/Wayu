@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToMany, OneToMany } from 'typeorm';
-import { Faqs } from '../support/faqs.entity';
-import { FaqsTag } from '../support/faqsTags.entity';
+import { Faqs } from '../../support/faqs.entity';
+import { FaqsTag } from '../../support/faqsTags.entity';
 import {BaseModel} from "@/core/base-model";
 import {News} from "@/features/news/news/news.entity";
 import {NewsTag} from "@/features/news/news-tags/news-tags.entity";

@@ -1,8 +1,10 @@
 import {IsNumber, IsOptional, IsString, MaxLength} from "class-validator";
 import {ApiHideProperty, ApiProperty} from "@nestjs/swagger";
 import {Type} from "class-transformer";
+import {Command} from "@nestjs/cqrs";
+import {UpdateNewsCategoryResponse} from "@/features/news/news-category/commands/update-news-category/update-news-category.response";
 
-export class UpdateNewsCategoryCommand {
+export class UpdateNewsCategoryCommand extends Command<UpdateNewsCategoryResponse>{
   @IsNumber()
   @ApiHideProperty()
   @Type(() => Number)

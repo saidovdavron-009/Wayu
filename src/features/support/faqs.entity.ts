@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToMany, JoinTable, OneToMany } from 'typeorm';
 import { BaseModel } from '@/core/base-model';
-import { Tags } from '@/features/common/tags.entity';
+import { Tags } from '@/features/common/tags/tags.entity';
 import { FaqsTag } from './faqsTags.entity';
 import type {Relation} from "typeorm";
 
