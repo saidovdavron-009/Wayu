@@ -16,8 +16,9 @@ export class CreateCountryHandler implements ICommandHandler<CreateCountryComman
 
     const country = Countries.create({
       title: command.title,
-      flag: command.flag
+      flag: command.flag.filename
     })
+
     await Countries.save(country)
     return plainToInstance(CreateCountryResponse, country, {excludeExtraneousValues: true})
   }

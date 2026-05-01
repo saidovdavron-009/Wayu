@@ -9,7 +9,7 @@ export class CreateSocialLinkHandler implements ICommandHandler<CreateSocialLink
   async execute(command: CreateSocialLinkCommand): Promise<CreateSocialLinkResponse> {
     const socialLink = SocialLinks.create({
       title: command.title,
-      icon: command.icon,
+      icon: command.icon.path,
       link: command.link
     })
     await SocialLinks.save(socialLink)

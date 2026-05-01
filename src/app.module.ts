@@ -6,6 +6,10 @@ import {ConfigModule} from '@nestjs/config';
 import {NewsModule} from "@/features/news/news.module";
 import {CqrsModule} from "@nestjs/cqrs";
 import {CommonModule} from "@/features/common/common.module";
+import {NetworkModule} from "@/features/network/network.module";
+import {LibraryModule} from "@/features/library/library.module";
+import {CareersModule} from "@/features/careers/careers.module";
+import {SupportModule} from "@/features/support/support.module";
 
 @Module({
   imports: [
@@ -23,7 +27,11 @@ import {CommonModule} from "@/features/common/common.module";
       }),
     }),
     NewsModule,
-    CommonModule
+    CommonModule,
+    NetworkModule,
+    LibraryModule,
+    CareersModule,
+    SupportModule
   ],
 })
 

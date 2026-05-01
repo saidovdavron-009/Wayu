@@ -1,31 +1,14 @@
-import {Type} from "class-transformer";
-import {ApiHideProperty, ApiProperty} from "@nestjs/swagger";
-import {Allow, IsNumber, IsOptional, IsString} from "class-validator";
+import {Command} from "@nestjs/cqrs";
+import {UpdateNewsResponse} from "@/features/news/news/commands/update-news/update-news.response";
 
-export class UpdateNewsCommand {
-  @IsNumber()
-  @ApiHideProperty()
-  @Type(() => Number)
-  @IsOptional()
-  id!: number
-
-  @IsString()
-  @ApiProperty()
-  @IsOptional()
-  title?: string
-
-  @Allow()
-  @ApiProperty({type: "string", format: "binary"})
-  @IsOptional()
-  image?: string
-
-  @IsString()
-  @ApiProperty()
-  @IsOptional()
-  date?: string
-
-  @IsString()
-  @ApiProperty()
-  @IsOptional()
-  content?: string
+export class UpdateNewsCommand extends Command<UpdateNewsResponse>{
+  constructor(
+    public id?: number,
+    public title?: string,
+    public image?: Express.Multer.File,
+    public date?: string,
+    public content?: string
+    ) {
+    super();
+  }
 }

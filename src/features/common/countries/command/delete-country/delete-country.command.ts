@@ -1,9 +1,7 @@
 import {Command} from "@nestjs/cqrs";
-import {IsNumber} from "class-validator";
-import {ApiProperty} from "@nestjs/swagger";
 
 export class DeleteCountryCommand extends Command<void> {
-  @IsNumber()
-  @ApiProperty()
-  id!: number
+  constructor(public id: number) {
+    super();
+  }
 }

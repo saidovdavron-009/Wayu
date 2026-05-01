@@ -10,8 +10,8 @@ export class News extends BaseModel {
   @Column({type: "int"})
   categoryId!: number
 
-  @Column({type: "int"})
-  countryId!: number
+  @Column({type: "int",nullable:true})
+  countryId?: number
 
   @Column({type: "varchar", length: 256})
   title!: string

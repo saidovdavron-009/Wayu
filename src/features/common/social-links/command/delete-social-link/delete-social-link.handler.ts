@@ -1,7 +1,7 @@
 import {CommandHandler, ICommandHandler} from "@nestjs/cqrs";
 import {NotFoundException} from "@nestjs/common";
-import {DeleteSocialLinkCommand} from "@/features/common/social-links/command/delete-social-link/delete-social.link.command";
 import {SocialLinks} from "@/features/common/social-links/socialLinks.entity";
+import {DeleteSocialLinkCommand} from "@/features/common/social-links/command/delete-social-link/delete-social-link.command";
 
 @CommandHandler(DeleteSocialLinkCommand)
 export class DeleteSocialLinkHandler implements ICommandHandler<DeleteSocialLinkCommand>{

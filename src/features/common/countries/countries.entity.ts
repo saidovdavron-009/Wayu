@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany } from 'typeorm';
 import { BaseModel } from "@/core/base-model";
 import { News } from "@/features/news/news/news.entity";
-import { Branches } from '../../network/branches.entity';
+import { Branches } from '../../network/branches/branches.entity';
 import type {Relation} from "typeorm";
 
 @Entity('countries')

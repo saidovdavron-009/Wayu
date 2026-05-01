@@ -1,20 +1,12 @@
-import {Allow, IsString, MaxLength} from "class-validator";
-import {ApiProperty} from "@nestjs/swagger";
 import {Command} from "@nestjs/cqrs";
 import {CreateSocialLinkResponse} from "@/features/common/social-links/command/create-social-link/create-social-link.response";
 
-export class CreateSocialLinkCommand extends Command<CreateSocialLinkResponse>{
-  @IsString()
-  @ApiProperty()
-  @MaxLength(64)
-  title!: string;
-
-  @Allow()
-  @ApiProperty({type : "string",format: 'binary'})
-  icon!: string;
-
-  @IsString()
-  @ApiProperty()
-  @MaxLength(128)
-  link!: string
+export class CreateSocialLinkCommand extends Command<CreateSocialLinkResponse> {
+  constructor(
+    public title: string,
+    public icon: Express.Multer.File,
+    public link: string,
+  ) {
+    super();
+  }
 }

@@ -1,9 +1,9 @@
 import {CommandHandler, ICommandHandler} from "@nestjs/cqrs";
-import {UpdateNewsCommand} from "@/features/news/news/commands/update-news/update-news.command";
 import {UpdateNewsResponse} from "@/features/news/news/commands/update-news/update-news.response";
 import {News} from "@/features/news/news/news.entity";
 import {NotFoundException} from "@nestjs/common";
 import {plainToInstance} from "class-transformer";
+import {UpdateNewsCommand} from "@/features/news/news/commands/update-news/update-news.command";
 
 @CommandHandler(UpdateNewsCommand)
 export class UpdateNewsHandler implements ICommandHandler<UpdateNewsCommand> {
@@ -13,12 +13,14 @@ export class UpdateNewsHandler implements ICommandHandler<UpdateNewsCommand> {
       throw new NotFoundException('news with given id not found')
     }
 
-    Object.assign(
-      news,
-      Object.fromEntries(
-        Object.entries(([key,value]) => value)
-      )
-    )
+    if (command.title !== undefined)
+      news.title = command.title;
+    if (command.image !== undefined)
+      news.image = command.image.path;
+    if (command.date !== undefined)
+      news.date = command.date;
+    if (command.content !== undefined)
+      news.content = command.content;
 
     await News.save(news)
     return plainToInstance(UpdateNewsResponse, news, {excludeExtraneousValues: true})

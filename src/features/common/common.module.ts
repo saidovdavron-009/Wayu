@@ -17,12 +17,33 @@ import {DeleteSocialLinkHandler} from "@/features/common/social-links/command/de
 import {UpdateSocialLinkHandler} from "@/features/common/social-links/command/update-social-link/update-social-link.handler";
 import {GetAllSocialLinkHandler} from "@/features/common/social-links/query/get-all-social-link/get-all-social-link.handler";
 import {GetOneSocialLinkHandler} from "@/features/common/social-links/query/get-one-social-link/get-one-social.link.handler";
+import {UsefulLinkController} from "@/features/common/useful-links/usefulLink.controller";
+import {CreateUsefulLinkHandler} from "@/features/common/useful-links/command/create-useful-link/create-useful-link.handler";
+import {GetAllUsefulLinkHandler} from "@/features/common/useful-links/query/get-all-useful-link/get-all-useful-link.handler";
+import {GetOneUsefulLinkHandler} from "@/features/common/useful-links/query/get-one-useful-link/get-one-useful-link.handler";
+import {DeleteUsefulLinkHandler} from "@/features/common/useful-links/command/delete-useful-link/delete-useful-link.handler";
+import {UpdateUsefulLinkHandler} from "@/features/common/useful-links/command/update-useful-link/update-useful-link.handler";
+import {CreateTagsHandler} from "@/features/common/tags/commands/create-tags/create-tags.handler";
+import {GetAllTagsHandler} from "@/features/common/tags/query/get-all-tags/get-all-tags.handler";
+import {GetOneTagsHandler} from "@/features/common/tags/query/get-one-tags/get-one-tags.handler";
+import {DeleteTagsHandler} from "@/features/common/tags/commands/delete-tags/delete-tags.handler";
+import {UpdateTagsHandler} from "@/features/common/tags/commands/update-tags/update-tags.handler";
+import {TagsController} from "@/features/common/tags/tags-controller";
+import {StaticInfoController} from "@/features/common/static-info/static-info.controller";
+import {CreateStaticInfoHandler} from "@/features/common/static-info/command/create-static-info/create-static-info.handler";
+import {UpdateStaticInfoHandler} from "@/features/common/static-info/command/update-static-info/update-static-info.handler";
+import {DeleteStaticInfoHandler} from "@/features/common/static-info/command/delete-static-info/delete-static-info.handler";
+import {GetAllStaticInfoHandler} from "@/features/common/static-info/query/get-all-static-info/get-all-static-info.handler";
+import {GetOneStaticInfoHandler} from "@/features/common/static-info/query/get-one-static-info/get-one-static-info.handler";
 
 @Module({
   controllers: [
     CountryController,
     LanguageController,
-    SocialLinkController
+    SocialLinkController,
+    UsefulLinkController,
+    TagsController,
+    StaticInfoController,
   ],
   providers: [
     GetAllCountryHandler,
@@ -40,7 +61,22 @@ import {GetOneSocialLinkHandler} from "@/features/common/social-links/query/get-
     UpdateSocialLinkHandler,
     DeleteSocialLinkHandler,
     GetAllSocialLinkHandler,
-    GetOneSocialLinkHandler
+    GetOneSocialLinkHandler,
+    CreateUsefulLinkHandler,
+    GetAllUsefulLinkHandler,
+    GetOneUsefulLinkHandler,
+    DeleteUsefulLinkHandler,
+    UpdateUsefulLinkHandler,
+    CreateTagsHandler,
+    GetAllTagsHandler,
+    GetOneTagsHandler,
+    DeleteTagsHandler,
+    UpdateTagsHandler,
+    CreateStaticInfoHandler,
+    UpdateStaticInfoHandler,
+    DeleteStaticInfoHandler,
+    GetAllStaticInfoHandler,
+    GetOneStaticInfoHandler,
   ]
 })
 

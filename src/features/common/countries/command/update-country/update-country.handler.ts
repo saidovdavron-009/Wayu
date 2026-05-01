@@ -13,12 +13,10 @@ export class UpdateCountryHandler implements ICommandHandler<UpdateCountryComman
       throw new NotFoundException('country with given id not found')
     }
 
-    Object.assign(
-      country,
-      Object.fromEntries(
-        Object.entries(command).filter(([key, value]) => value)
-      )
-    )
+    if(command.title !== undefined)
+      country.title = command.title
+    if(command.flag !== undefined)
+      country.flag = command.flag.path
 
     await Countries.save(country)
     return plainToInstance(UpdateCountryResponse, country, {excludeExtraneousValues: true})

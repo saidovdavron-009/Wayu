@@ -13,6 +13,9 @@ import {GetOneCountryQuery} from "@/features/common/countries/query/get-one-coun
 import {DeleteCountryCommand} from "@/features/common/countries/command/delete-country/delete-country.command";
 import {UpdateCountryResponse} from "@/features/common/countries/command/update-country/update-country.response";
 import {UpdateCountryCommand} from "@/features/common/countries/command/update-country/update-country.command";
+import {CreateCountryRequest} from "@/features/common/countries/command/create-country/create-country.request";
+import fs from "fs"
+import {UpdateCountryRequest} from "@/features/common/countries/command/update-country/update-country.request";
 
 @Controller('admin/country')
 @ApiTags('Country')
@@ -37,9 +40,17 @@ export class CountryController {
     }
   }))
   @ApiCreatedResponse({type: CreateCountryResponse})
-  async createCountry(@Body() command: CreateCountryCommand, @UploadedFile() flag: Express.Multer.File) {
-    command.flag = flag.filename
-    return await this.commandBus.execute(command)
+  async createCountry(@Body() payload: CreateCountryRequest, @UploadedFile() flag: Express.Multer.File) {
+    let cmd = new CreateCountryCommand(
+      payload.title,
+      flag
+    )
+    try {
+      return await this.commandBus.execute(cmd)
+    }catch (exc){
+      if(fs.existsSync(flag.path))
+        fs.rmSync(flag.path)
+    }
   }
 
   @Get(':id')
@@ -52,8 +63,7 @@ export class CountryController {
 
   @Delete(':id')
   async deleteCountry(@Param('id', ParseIntPipe) id: number) {
-    const cmd = new DeleteCountryCommand()
-    cmd.id = id
+    const cmd = new DeleteCountryCommand(id)
     return await this.commandBus.execute(cmd)
   }
 
@@ -63,11 +73,19 @@ export class CountryController {
   @UseInterceptors(FileInterceptor('flag', {storage: storageOptions}))
   async updateCountry(
     @Param('id', ParseIntPipe) id: number,
-    @Body() command: UpdateCountryCommand,
+    @Body() payload: UpdateCountryRequest,
     @UploadedFile() flag: Express.Multer.File
   ) {
-    command.id = id
-    command.flag = flag.filename
-    return await this.commandBus.execute(command)
+    let cmd = new UpdateCountryCommand(
+      payload.id,
+      payload.title,
+      flag
+    )
+    try {
+      return await this.commandBus.execute(cmd)
+    }catch (exc){
+      if(fs.existsSync(flag.path))
+        fs.rmSync(flag.path)
+    }
   }
 }

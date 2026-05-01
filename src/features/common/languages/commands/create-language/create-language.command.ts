@@ -1,11 +1,8 @@
-import {IsString, MaxLength} from "class-validator";
-import {ApiProperty} from "@nestjs/swagger";
 import {Command} from "@nestjs/cqrs";
 import {CreateLanguageResponse} from "@/features/common/languages/commands/create-language/create-language.response";
 
-export class CreateLanguageCommand extends Command<CreateLanguageResponse>{
-  @IsString()
-  @ApiProperty()
-  @MaxLength(64)
-  title!: string;
+export class CreateLanguageCommand extends Command<CreateLanguageResponse> {
+  constructor(public title: string) {
+    super();
+  }
 }

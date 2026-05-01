@@ -1,5 +1,5 @@
 import {IQueryHandler, QueryHandler} from "@nestjs/cqrs";
-import {GetOneNewsQuery} from "@/features/news/news/query/get-one-news/get-one-news.query";
+import {GetOneNewsQuery} from "@/features/news/news/query/get-one-news/get-one-news.request";
 import {GetOneNewsResponse} from "@/features/news/news/query/get-one-news/get-one-news.response";
 import {News} from "@/features/news/news/news.entity";
 import {NotFoundException} from "@nestjs/common";

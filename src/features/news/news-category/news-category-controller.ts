@@ -5,7 +5,7 @@ import {CreateNewsCategoryResponse} from "./commands/create-news-category/create
 import {GetAllNewsCategoryResponse} from "./query/get-all-news-category/get-all-news-category.response";
 import {GetAllNewsCategoryQuery} from "./query/get-all-news-category/get-all-news-category.query";
 import {CommandBus, QueryBus} from "@nestjs/cqrs";
-import {GetAllNewsCategoryFilters} from "@/features/news/news-category/query/get-all-news-category/get-all-news-category-filters";
+import {GetAllNewsCategoryFilters} from "@/features/news/news-category/query/get-all-news-category/get-all-news-category.filters";
 import {DeleteNewsCategoryCommand} from "@/features/news/news-category/commands/delete-news-category/delete-news-category.command";
 import {GetOneNewsCategoryResponse} from "@/features/news/news-category/query/get-one-news-category/get-one-news-category.response";
 import {GetOneNewsCategoryQuery} from "@/features/news/news-category/query/get-one-news-category/get-one-news-category.query";

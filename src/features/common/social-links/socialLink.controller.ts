@@ -5,7 +5,6 @@ import {FileInterceptor} from "@nestjs/platform-express";
 import {storageOptions} from "@/config/multer.config";
 import {CreateSocialLinkResponse} from "@/features/common/social-links/command/create-social-link/create-social-link.response";
 import {CreateSocialLinkCommand} from "@/features/common/social-links/command/create-social-link/create-social-link.command";
-import {DeleteSocialLinkCommand} from "@/features/common/social-links/command/delete-social-link/delete-social.link.command";
 import {UpdateSocialLinkResponse} from "@/features/common/social-links/command/update-social-link/update-social-link.response";
 import {UpdateSocialLinkCommand} from "@/features/common/social-links/command/update-social-link/update-social-link.command";
 import {GetAllSocialLinkResponse} from "@/features/common/social-links/query/get-all-social-link/get-all-social-link.response";
@@ -13,6 +12,10 @@ import {GetAllSocialLinkFilters} from "@/features/common/social-links/query/get-
 import {GetAllSocialLinkQuery} from "@/features/common/social-links/query/get-all-social-link/get-all-social-link.query";
 import {GetOneSocialLinkResponse} from "@/features/common/social-links/query/get-one-social-link/get-one-social-link.response";
 import {GetOneSocialLinkQuery} from "@/features/common/social-links/query/get-one-social-link/get-one-social-link.query";
+import {DeleteSocialLinkCommand} from "@/features/common/social-links/command/delete-social-link/delete-social-link.command";
+import {CreateSocialLinkRequest} from "@/features/common/social-links/command/create-social-link/create-social-link.request";
+import {UpdateSocialLinkRequest} from "@/features/common/social-links/command/update-social-link/update-social-link.request";
+import fs from 'fs'
 
 @Controller('admin/social-link')
 @ApiTags('Social-Link')
@@ -37,9 +40,13 @@ export class SocialLinkController {
     }
   }))
   @ApiCreatedResponse({type: CreateSocialLinkResponse})
-  async createSocialLink(@Body() command: CreateSocialLinkCommand, @UploadedFile() icon: Express.Multer.File) {
-    command.icon = icon.filename
-    return await this.commandBus.execute(command)
+  async createSocialLink(@Body() payload: CreateSocialLinkRequest, @UploadedFile() icon: Express.Multer.File) {
+    let cmd = new CreateSocialLinkCommand(
+      payload.title,
+      icon,
+      payload.link
+    )
+    return await this.commandBus.execute(cmd)
   }
 
   @Get(':id')
@@ -52,8 +59,7 @@ export class SocialLinkController {
 
   @Delete(':id')
   async deleteSocialLink(@Param('id', ParseIntPipe) id: number) {
-    const cmd = new DeleteSocialLinkCommand()
-    cmd.id = id
+    const cmd = new DeleteSocialLinkCommand(id)
     return await this.commandBus.execute(cmd)
   }
 
@@ -63,11 +69,21 @@ export class SocialLinkController {
   @UseInterceptors(FileInterceptor('icon', {storage: storageOptions}))
   async updateSocialLink(
     @Param('id', ParseIntPipe) id: number,
-    @Body() command: UpdateSocialLinkCommand,
+    @Body() payload: UpdateSocialLinkRequest,
     @UploadedFile() icon: Express.Multer.File
   ) {
-    command.id = id
-    command.icon = icon.filename
-    return await this.commandBus.execute(command)
+    let cmd = new UpdateSocialLinkCommand(
+      payload.id,
+      payload.title,
+      icon,
+      payload.link
+    )
+
+    try {
+      return await this.commandBus.execute(cmd)
+    }catch (exc){
+      if(fs.existsSync(icon.path))
+        fs.rmSync(icon.path)
+    }
   }
 }
