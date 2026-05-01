@@ -1,4 +1,4 @@
-import {Column, Entity, ManyToMany, OneToMany} from 'typeorm';
+import {Column, Entity, JoinTable, ManyToMany, OneToMany} from 'typeorm';
 import {Faqs} from '../../support/faqs/faqs.entity';
 import {FaqsTag} from '../../support/faqs-tags/faqsTags.entity';
 import {BaseModel} from "@/core/base-model";

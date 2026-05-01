@@ -11,11 +11,15 @@ import {GetAllNewsHandler} from "@/features/news/news/query/get-all-news/get-all
 import {GetOneNewsHandler} from "@/features/news/news/query/get-one-news/get-one-news.handler";
 import {DeleteNewsHandler} from "@/features/news/news/commands/delete-news/delete-news.handler";
 import {UpdateNewsHandler} from "@/features/news/news/commands/update-news/update-news.handler";
+import {NewsTagsController} from "@/features/news/news-tags/news-tags.controller";
+import {CreateNewsTagHandler} from "@/features/news/news-tags/command/create-news-tag/create-news-tag.handler";
+import {DeleteNewsTagHandler} from "@/features/news/news-tags/command/delete-news-tag/delete-news-tag.handler";
 
 @Module({
   controllers: [
     NewsCategoryController,
-    NewsController
+    NewsController,
+    NewsTagsController
   ],
   providers: [
     CreateNewsCategoryHandler,
@@ -27,7 +31,9 @@ import {UpdateNewsHandler} from "@/features/news/news/commands/update-news/updat
     GetAllNewsHandler,
     GetOneNewsHandler,
     DeleteNewsHandler,
-    UpdateNewsHandler
+    UpdateNewsHandler,
+    CreateNewsTagHandler,
+    DeleteNewsTagHandler
   ]
 })
 

@@ -1,4 +1,4 @@
-import {Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany} from "typeorm";
+import {Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany} from "typeorm";
 import {BaseModel} from "@/core/base-model";
 import {Countries} from "@/features/common/countries/countries.entity";
 import {Tags} from "@/features/common/tags/tags.entity";
@@ -34,5 +34,6 @@ export class News extends BaseModel {
   country?: Relation<Countries>
 
   @ManyToMany(() => Tags, (tag) => tag.news)
+  @JoinTable()
   tags: Relation<Tags[]>;
 }

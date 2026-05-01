@@ -13,5 +13,6 @@ export class Faqs extends BaseModel {
   answer!: string;
 
   @ManyToMany(() => Tags, (tag) => tag.faqs)
+  @JoinTable()
   tags: Relation<Tags[]>;
 }

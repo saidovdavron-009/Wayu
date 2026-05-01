@@ -11,11 +11,15 @@ import {UpdateFaqHandler} from "@/features/support/faqs/commands/update-faq/upda
 import {DeleteFaqHandler} from "@/features/support/faqs/commands/delete-faq/delete-faq.handler";
 import {GetAllFaqHandler} from "@/features/support/faqs/query/get-all-faq/get-all-faq.handler";
 import {GetOneFaqHandler} from "@/features/support/faqs/query/get-one-faq/get-one-faq.handler";
+import {FaqsTagsController} from "@/features/support/faqs-tags/faqs-tags.controller";
+import {CreateFaqsTagHandler} from "@/features/support/faqs-tags/command/create-faqs-tag/create-faqs-tag.handler";
+import {DeleteFaqsTagHandler} from "@/features/support/faqs-tags/command/delete-faqs-tag/delete-faqs-tag.handler";
 
 @Module({
   controllers: [
     QuestionController,
     FaqController,
+    FaqsTagsController
   ],
   providers: [
     CreateQuestionHandler,
@@ -28,6 +32,8 @@ import {GetOneFaqHandler} from "@/features/support/faqs/query/get-one-faq/get-on
     DeleteFaqHandler,
     GetAllFaqHandler,
     GetOneFaqHandler,
+    CreateFaqsTagHandler,
+    DeleteFaqsTagHandler
   ]
 })
 export class SupportModule {}
