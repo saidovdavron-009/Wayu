@@ -21,3 +21,12 @@ export enum PaymentProvider {
   CLICK = 'click',
   OSON = 'oson',
 }
+
+export enum Role {
+  ADMIN = 'admin',
+  SUPER_ADMIN = 'superAdmin'
+}
+
+export enum LoginType {
+  adminId = 'adminId'
+}

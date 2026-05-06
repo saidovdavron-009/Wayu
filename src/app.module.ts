@@ -10,9 +10,14 @@ import {NetworkModule} from "@/features/network/network.module";
 import {LibraryModule} from "@/features/library/library.module";
 import {CareersModule} from "@/features/careers/careers.module";
 import {SupportModule} from "@/features/support/support.module";
+import {FinanceModule} from "@/features/finance/finance.module";
+import {JwtModule} from "@nestjs/jwt";
+import {jwtModuleConfig} from "@/config/jwt-config";
+import {AuthModule} from "@/features/authentification/auth.module";
 
 @Module({
   imports: [
+    JwtModule.register(jwtModuleConfig),
     TypeOrmModule.forRoot(typeOrmConfig),
     CqrsModule.forRoot(),
     ConfigModule.forRoot({
@@ -31,7 +36,9 @@ import {SupportModule} from "@/features/support/support.module";
     NetworkModule,
     LibraryModule,
     CareersModule,
-    SupportModule
+    SupportModule,
+    FinanceModule,
+    AuthModule
   ],
 })
 

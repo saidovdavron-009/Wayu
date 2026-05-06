@@ -3,10 +3,8 @@ import {INestApplication} from '@nestjs/common';
 import request = require('supertest');
 
 import {createTestApp} from './utils/test-app';
-// @ts-ignore
 import {teardownTestApp} from './utils/teardown';
 import {DataSource} from 'typeorm';
-import * as argon2 from 'argon2';
 
 describe('NewsCategoryController (e2e)', () => {
   let app: INestApplication;
@@ -27,4 +25,5 @@ describe('NewsCategoryController (e2e)', () => {
         .expect(201);
     },
   );
+
 });
