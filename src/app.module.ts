@@ -14,6 +14,9 @@ import {FinanceModule} from "@/features/finance/finance.module";
 import {JwtModule} from "@nestjs/jwt";
 import {jwtModuleConfig} from "@/config/jwt-config";
 import {AuthModule} from "@/features/authentification/auth.module";
+import {APP_GUARD} from "@nestjs/core";
+import {AuthenticationGuard} from "@/core/guards/authentification.guard";
+import {RolesGuard} from "@/core/guards/roles.guard";
 
 @Module({
   imports: [
@@ -40,6 +43,10 @@ import {AuthModule} from "@/features/authentification/auth.module";
     FinanceModule,
     AuthModule
   ],
+  providers: [
+    {provide: APP_GUARD, useClass: AuthenticationGuard},
+    {provide: APP_GUARD, useClass: RolesGuard},
+  ]
 })
 
 export class AppModule {

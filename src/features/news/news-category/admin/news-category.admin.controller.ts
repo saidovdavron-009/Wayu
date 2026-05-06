@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query} from "@nestjs/common";
+import {Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UseGuards} from "@nestjs/common";
 import {ApiCreatedResponse, ApiOkResponse, ApiTags} from "@nestjs/swagger";
 import {CreateNewsCategoryCommands} from "./command/create-news-category/create-news-category.commands";
 import {CreateNewsCategoryResponse} from "./command/create-news-category/create-news-category.response";
@@ -11,6 +11,8 @@ import {GetOneNewsCategoryResponse} from "./query/get-one-news-category/get-one-
 import {GetOneNewsCategoryQuery} from "./query/get-one-news-category/get-one-news-category.query";
 import {UpdateNewsCategoryCommand} from "./command/update-news-category/update-news-category.command";
 import {UpdateNewsCategoryResponse} from "./command/update-news-category/update-news-category.response";
+import {AuthGuard} from "@nestjs/passport";
+import {AuthenticationGuard} from "@/core/guards/authentification.guard";
 
 @Controller('admin/news-category')
 @ApiTags('News-Category')
@@ -36,6 +38,7 @@ export class NewsCategoryController {
   }
 
   @Post()
+  @UseGuards(AuthenticationGuard)
   @ApiCreatedResponse({type: CreateNewsCategoryResponse})
   async createNewsCategory(@Body() command: CreateNewsCategoryCommands) {
     return await this.commandBus.execute(command)

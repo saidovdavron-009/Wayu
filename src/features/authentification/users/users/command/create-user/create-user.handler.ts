@@ -11,10 +11,6 @@ import {Role} from "@/core/enum/enum";
 export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
   async execute(cmd: CreateUserCommand): Promise<CreateUserResponse> {
 
-    if (cmd.role === Role.ADMIN || cmd.executorRole !== Role.SUPER_ADMIN) {
-      throw new UnauthorizedException('Admin yaratish huquqi faqat Super Adminlarda bor!')
-    }
-
     const alreadyExists = await User.findOneBy({userName: cmd.userName})
     if (alreadyExists) {
       throw new BadRequestException('userName alreadyExists')

@@ -11,7 +11,6 @@ export class CreateUserCommand extends Command<CreateUserResponse>{
     public birthDate: string,
     public isVerified: boolean,
     public isActive: boolean,
-    public executorRole: Role
   ) {
     super();
   }

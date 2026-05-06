@@ -17,7 +17,7 @@ export class User extends BaseModel {
   password!: string;
 
   @Column({type: 'date', nullable: true})
-  birthDate!: string;
+  birthDate?: string;
 
   @Column({default: false})
   isVerified!: boolean;

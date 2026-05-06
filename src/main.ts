@@ -6,8 +6,10 @@ import { configureSwagger } from './config/swagger.config';
 import {NestExpressApplication} from '@nestjs/platform-express';
 import { join } from 'path'
 import morgan from 'morgan';
+import {createSuperAdmin} from "@/core/utils";
 
 async function bootstrap() {
+  await createSuperAdmin();
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.enableCors({origin: '*'})
